@@ -1,2 +1,0 @@
-# Cinemax
-Created with CodeSandbox

@@ -100,7 +100,7 @@ input[type="text"]:focus {
   border-bottom: 1px solid #999999;
 }
 
-button {
+btn {
   align-items: center;
   background-color: #ffffff;
   border: 0;
@@ -126,19 +126,19 @@ button {
   width: auto;
 }
 
-button:hover,
-button:focus {
+btn:hover,
+btn:focus {
   border: 1px solid rgb(255, 255, 255);
   background-color: transparent;
   color: #ffffff;
   letter-spacing: 2px;
 }
 
-button:hover {
+btn:hover {
   transform: translateY(-1px);
 }
 
-button:active {
+btn:active {
   background-color: #f0f0f1;
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
@@ -187,4 +187,33 @@ button:active {
   font-size: 0.85rem;
   font-weight: 200;
   padding: 0.5rem 0;
+}
+.favorite {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  margin-right: 1rem;
+  z-index: 100;
+}
+
+.favorite .btn-favorite {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border: 0;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background: #ffff00 ;
+}
+
+.favorite .btn-favorite img {
+width: 50px;
+height: 50px;
+object-fit: none;
+padding-top: 0;
 }

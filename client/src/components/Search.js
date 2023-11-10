@@ -16,7 +16,7 @@ const Search = ({ search, setSearch, searchMovies }) => {
           placeholder="Quel film recherchez-vous ?"
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button type="submit">Rechercher</button>
+        <button className="btn" type="submit" >Rechercher</button>
       </form>
     </div>
   );

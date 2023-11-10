@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import "./styles.css";
+import "../styles.css";
 // Import du logo pour interpolation dans jsx
-import cinemaxLogo from "./assets/cinemax-lg.png";
+import cinemaxLogo from "../assets/cinemax-lg.png";
 
 // Nos composants
-import Search from "./components/Search";
-import Movies from "./components/Movies";
+import Search from "../components/Search";
+import Movies from "../components/Movies";
+import Nav from "../components/Nav"
 
 export default function App() {
   // OMDB API
@@ -33,19 +34,20 @@ export default function App() {
   }, []);
   return (
     <>
-      <div className="App">
+      
+      <Nav />
         <header>
           <img src={cinemaxLogo} className="logo" alt="logo cinema" />
-          <Search
-            search={search}
-            setSearch={setSearch}
-            searchMovies={searchMovies}
-          />
+            <Search
+              search={search}
+              setSearch={setSearch}
+              searchMovies={searchMovies}
+            />
         </header>
         <main>
           <Movies movies={movies} />
         </main>
-      </div>
+      
     </>
   );
 }

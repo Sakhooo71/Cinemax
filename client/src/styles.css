@@ -217,3 +217,21 @@ height: 50px;
 object-fit: none;
 padding-top: 0;
 }
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(92, 91, 91);
+  padding: 0, 65em;
+  border-bottom: 1px solid #f9f9f9;
+}
+.nav {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.nav-item a {
+  text-decoration: none;
+  color: #f9f9f9;
+}

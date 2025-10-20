@@ -29,7 +29,7 @@ app.post('/api/save', (req, res) => {
 
 app.get('/api/favorites', async (req, res) => {
   try {
-    const data = fs.readFileSync('./data.json', 'utf8');
+    const data = fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8');
     const favoritesData = JSON.parse(data);
     const favoriteMovies = [];
 

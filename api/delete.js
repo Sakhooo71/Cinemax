@@ -1,9 +1,11 @@
 const fs = require('fs');
+const path = require('path');
 
 const Delete = (movieID) => {
     let status = false;
     try {
-        const data = fs.readFileSync('./data.json', 'utf8');
+        const dataPath = path.join(__dirname, 'data.json');
+        const data = fs.readFileSync(dataPath, 'utf8');
         const favoritesData = JSON.parse(data);
         
         const initialLength = favoritesData.favorites.length;
@@ -11,7 +13,7 @@ const Delete = (movieID) => {
         const finalLength = favoritesData.favorites.length;
 
         if (initialLength > finalLength) {
-            fs.writeFileSync('./data.json', JSON.stringify(favoritesData, null, 2));
+            fs.writeFileSync(dataPath, JSON.stringify(favoritesData, null, 2));
             status = true;
         }
     } catch (error) {

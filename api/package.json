@@ -1,5 +1,5 @@
 {
-  "name": "cinemax-api",
+  "name": "api",
   "version": "1.0.0",
   "description": "API de gestion de l'application cinemax",
   "main": "index.js",

@@ -5,6 +5,13 @@ const Save = (movieID) =>
     let status = false // On définit une variable de statut pour savoir si tout s'est bien passé
     let favoritesList = fs.readFileSync('./data.json', 'utf8') // On récupère la liste des favoris
     let favorites = JSON.parse(favoritesList).favorites // On parse la liste des favoris
+
+    // Vérifier si le film existe déjà
+    const movieExists = favorites.find(movie => movie.id === movieID);
+    if (movieExists) {
+        return status; // Retourner false si le film existe déjà
+    }
+
     const newFavorite = { id: movieID, movie: movieID } // On crée un nouvel objet film
     favorites.push(newFavorite) // On ajoute le nouveau film à la liste des favoris
     try {

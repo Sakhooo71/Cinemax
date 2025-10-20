@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 const Save = require('./api/Save');
-const Delete = require('./delete');
+const Delete = require('./api/delete');
 
 const PORT = process.env.PORT || 3002;
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.post('/api/save', (req, res) => {
   const { imdbID } = req.body;
-  const saveStatus = save(imdbID);
+  const saveStatus = Save(imdbID);
   if (saveStatus) {
     res.status(200).json({ message: 'Favori ajouté avec succès' });
   } else {

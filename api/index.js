@@ -5,7 +5,7 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
-const Save = require('./api/save');
+const Save = require('./api/Save');
 const Delete = require('./delete');
 
 const PORT = process.env.PORT || 3002;
@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.post('/api/save', (req, res) => {
   const { imdbID } = req.body;
-  const saveStatus = Save(imdbID);
+  const saveStatus = save(imdbID);
   if (saveStatus) {
     res.status(200).json({ message: 'Favori ajouté avec succès' });
   } else {

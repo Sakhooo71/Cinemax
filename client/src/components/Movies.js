@@ -1,22 +1,64 @@
-import React from "react";
+import React from 'react';
 
-// Ce composant représente le résultat de la recherche
-const Movies = ({ movies }) => {
-  // Lien IMDB
+const Movies = ({ movies, onFavorite, onDelete, isFavoritesPage }) => {
   const imdb = "https://imdb.com/title/";
-  const star = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#fff82e" d="M16.23 18L12 15.45L7.77 18l1.12-4.81l-3.73-3.23l4.92-.42L12 5l1.92 4.53l4.92.42l-3.73 3.23L16.23 18M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z"/></svg>`
+
+  const handleFavoriteClick = async (imdbID) => {
+    try {
+      const response = await fetch('/api/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `imdbID=${imdbID}`,
+      });
+      if (response.ok) {
+        alert("Film ajouté aux favoris !");
+      } else {
+        alert("Ce film est déjà dans vos favoris.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'ajout aux favoris:", error);
+      alert("Une erreur est survenue.");
+    }
+  };
+
+  const handleDeleteClick = async (imdbID) => {
+    try {
+      const response = await fetch('/api/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imdbID }),
+      });
+      if (response.ok) {
+        alert("Film supprimé des favoris !");
+        if (onDelete) {
+          onDelete(imdbID);
+        }
+      } else {
+        alert("Erreur lors de la suppression.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression:", error);
+      alert("Une erreur est survenue.");
+    }
+  };
 
   return (
     <div className="movies">
-      
       {movies.map((movie) => (
         <div className="movie" key={movie.imdbID}>
-          <form className="favorite" method="POST" action="http://localhost:3002/api/save">
-            <input type="hidden" name="imdbID" value={movie.imdbID} />
-            <button type="submit" className="btn-favorite">
+          {!isFavoritesPage ? (
+            <button onClick={() => handleFavoriteClick(movie.imdbID)} className="btn-favorite">
               <img src="https://api.iconify.design/mdi:star-circle.svg" alt="star" width="50" />
             </button>
-          </form>
+          ) : (
+            <button onClick={() => handleDeleteClick(movie.imdbID)} className="btn-delete">
+              <img src="https://api.iconify.design/mdi:delete-circle.svg" alt="delete" width="50" />
+            </button>
+          )}
           <div className="movie-info">
             <img
               src={
@@ -29,7 +71,7 @@ const Movies = ({ movies }) => {
             <h3>{movie.Title}</h3>
             <p>
               Voir les détails
-              <a href={imdb + movie.imdbID} target="_blank">
+              <a href={imdb + movie.imdbID} target="_blank" rel="noopener noreferrer">
                 IMDB
               </a>
             </p>

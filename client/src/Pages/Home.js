@@ -10,23 +10,29 @@ import Nav from "../components/Nav"
 
 export default function App() {
   // OMDB API
-  const API = "https://www.omdbapi.com/?apikey=78620d47";
+  const API = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}`;
 
   // States (états)
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(null);
 
   // Fonction : searchMovies()
   const searchMovies = async (searchValue) => {
-    // Fetch de l'API OMDB
-    const response = await fetch(API + "&s=" + searchValue);
-    const data = await response.json();
-    // On modifie le tableau si l'API retourne des données
-    if (data.Search) {
-      setMovies(data.Search);
+    try {
+      const response = await fetch(API + "&s=" + searchValue);
+      const data = await response.json();
+      if (data.Search) {
+        setMovies(data.Search);
+        setError(null);
+      } else {
+        setMovies([]);
+        setError('Aucun film trouvé pour cette recherche.');
+      }
+    } catch (error) {
+      setError('Impossible de charger les films.');
+      console.error('Erreur lors de la recherche de films:', error);
     }
-    console.log(data.Search);
-    // Vérifier les infos reçu par l'API
   };
   //useEffect pour lancer la rechcerche des films
   useEffect(() => {
@@ -45,7 +51,8 @@ export default function App() {
             />
         </header>
         <main>
-          <Movies movies={movies} />
+          {error && <p className="error">{error}</p>}
+          <Movies movies={movies} isFavoritesPage={false} />
         </main>
       
     </>
